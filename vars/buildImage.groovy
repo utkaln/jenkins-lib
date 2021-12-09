@@ -13,6 +13,6 @@ def call(String imageName) {
         sh "echo $PSWD | docker login -u $UID --password-stdin"
 
         // push image to docker hub
-        sh 'docker push $imageName'
+        sh "docker push $imageName"
     }
 }
