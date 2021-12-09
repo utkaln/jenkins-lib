@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(imageName) {
+def call(String imageName) {
     echo "Build Docker image for basic java app and push to docker hub ..."
 
     // use docker hub credentials from jenkins credentials settings
