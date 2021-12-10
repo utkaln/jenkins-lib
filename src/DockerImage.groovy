@@ -1,5 +1,4 @@
 #!/usr/bin/env groovy
-package com.learn.jenkins
 
 class DockerImage implements Serializable {
     // Serializable helps persists state of the script when jenkins job is paused and resumed
