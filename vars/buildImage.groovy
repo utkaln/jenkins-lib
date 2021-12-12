@@ -2,5 +2,7 @@
 import DockerImage
 
 def call(String imageName) {
-    return new DockerImage(this).buildDockerImage(imageName+$IMAGE_TAG)   
+    echo 'Ready to build image with version --> $env.IMAGE_TAG'
+    def completeImageVersion = imageName+$env.IMAGE_TAG
+    return new DockerImage(this).buildDockerImage(completeImageVersion)   
 }
