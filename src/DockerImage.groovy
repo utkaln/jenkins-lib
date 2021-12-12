@@ -47,7 +47,7 @@ class DockerImage implements Serializable {
             // commit pom.xml to git repo
             script.sh 'git add .'
             script.sh 'git commit -m "jenkins: version updated"'
-            script.sh 'git push HEAD:jenkins_lib_update_version'
+            script.sh 'git push origin HEAD:jenkins_lib_update_version'
         }
     }
 
