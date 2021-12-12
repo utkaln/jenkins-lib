@@ -28,4 +28,28 @@ class DockerImage implements Serializable {
         }
     }
 
+    def commitVersionNum(String versionTag) {
+        script.echo "Committing version tag to Git --> $versionTag"
+
+        // use docker hub credentials from jenkins credentials settings
+        script.withCredentials([script.usernamePassword(credentialsId: 'github-credentials-utkaln', passwordVariable: 'PSWD', usernameVariable: 'UID')]) {
+            // set git config first for jenkins commit
+            script.sh 'git config --global user.email "jenkins@example.com"'
+            script.sh 'git config --global user.name "jenkins"'
+            
+            // print git info for informational purpose
+            script.sh 'git status'
+            script.sh 'git branch'
+            script.sh 'git config --list'
+            
+            // authenticate to git repo
+            script.sh "git remote set-url origin https://${UID}:${PSWD}@github.com/utkaln/basic-java-app.git"
+
+            // commit pom.xml to git repo
+            script.sh 'git add .'
+            script.sh 'git commit -m "jenkins: version updated"'
+            script.sh 'git push'
+        }
+    }
+
 }
