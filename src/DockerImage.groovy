@@ -29,8 +29,7 @@ class DockerImage implements Serializable {
     }
 
     def commitVersionNum() {
-        script.echo "Committing version tag to Git --> $versionTag"
-
+        
         // use docker hub credentials from jenkins credentials settings
         script.withCredentials([script.usernamePassword(credentialsId: 'github-credentials-utkaln', passwordVariable: 'PSWD', usernameVariable: 'UID')]) {
             // set git config first for jenkins commit
