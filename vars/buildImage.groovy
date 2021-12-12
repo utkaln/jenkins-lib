@@ -2,5 +2,5 @@
 import DockerImage
 
 def call(String imageName) {
-    return new DockerImage(this).buildDockerImage(imageName)   
+    return new DockerImage(this).buildDockerImage(imageName+$IMAGE_TAG)   
 }
