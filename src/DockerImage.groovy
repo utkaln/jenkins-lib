@@ -42,13 +42,13 @@ class DockerImage implements Serializable {
             script.sh 'git config --list'
             
             // authenticate to git repo
-            script.sh "git remote set-url origin https://$script.UID:$script.PSWD@github.com/utkaln/basic-java-app.git"
+            script.sh 'git remote set-url origin https://$script.UID:$script.PSWD@github.com/utkaln/basic-java-app.git'
             script.sh 'git remote -v'
             
             // commit pom.xml to git repo
             script.sh 'git add .'
             script.sh 'git commit -m "jenkins: version updated"'
-            script.sh "git push origin HEAD:jenkins_lib_update_version"
+            script.sh 'git push origin HEAD:jenkins_lib_update_version'
         }
     }
 
