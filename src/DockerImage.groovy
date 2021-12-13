@@ -31,7 +31,7 @@ class DockerImage implements Serializable {
     def commitVersionNum() {
         
         // use docker hub credentials from jenkins credentials settings
-        script.withCredentials([script.usernamePassword(credentialsId: 'github-credentials-utkaln', passwordVariable: 'PSWD', usernameVariable: 'UID')]) {
+        script.withCredentials([script.usernamePassword(credentialsId: 'jenkins_pat', passwordVariable: 'PSWD', usernameVariable: 'UID')]) {
             // set git config first for jenkins commit
             script.sh 'git config --global user.email "jenkins@example.com"'
             script.sh 'git config --global user.name "jenkins"'
@@ -42,7 +42,7 @@ class DockerImage implements Serializable {
             script.sh 'git config --list'
             
             // authenticate to git repo
-            script.sh 'git remote set-url origin https://$script.UID:$script.PSWD@github.com/utkaln/basic-java-app.git'
+            script.sh 'git remote set-url origin https://$script.PSWD@github.com/utkaln/basic-java-app.git'
             script.sh 'git remote -v'
             
             // commit pom.xml to git repo
