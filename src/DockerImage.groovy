@@ -52,12 +52,12 @@ class DockerImage implements Serializable {
 
     def deployToEC2(String ipEC2) {
          
-        script.echo "ip addr found as $script.ipEC2"
+       //script.echo "ip addr found as $script.ipEC2"
         def dockerRunCmd = 'docker run -p 8080:8080 -d utkal/demo-java-maven-app:lts'
         script.sshagent(['ec2-server-key']) {
             // IP subject to change with each restart of EC2
             // suppress confirmation questions with param -o
-            script.sh "ssh -o StrictHostKeyChecking=no ec2-user@$script.ipEC2 $script.dockerRunCmd"
+            script.sh "ssh -o StrictHostKeyChecking=no ec2-user@44.201.214.67 $script.dockerRunCmd"
         }
     }
 
