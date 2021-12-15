@@ -2,6 +2,7 @@
 import DockerImage
 
 def call() {
-    echo "Deploying to EC2"
-    return new DockerImage(this).deployToEC2($params.EC2_IP)   
+    def ec2param = params.EC2_IP
+    echo "Deploying to EC2 $ec2param"
+    return new DockerImage(this).deployToEC2(ec2param)   
 }
