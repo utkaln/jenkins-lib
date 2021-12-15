@@ -24,8 +24,7 @@ class DockerImage implements Serializable {
             script.sh "echo $script.PSWD | docker login -u $script.UID --password-stdin"
 
             // push image to docker hub
-            // TODO remember to uncomment to push new image
-            //script.sh "docker push $imageName"
+            script.sh "docker push $imageName"
         }
     }
 
@@ -52,7 +51,7 @@ class DockerImage implements Serializable {
 
     def deployToEC2(String ipEC2) {
          
-        script.echo "ip addr found as $ipEC2"
+        script.echo "IP addr of EC2 instance found as $ipEC2"
         def dockerRunCmd = 'docker run -p 8080:8080 -d utkal/demo-java-maven-app:basic-java-0.0.2-10'
         script.sshagent(['ec2-server-key']) {
             // IP subject to change with each restart of EC2
