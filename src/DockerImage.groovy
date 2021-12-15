@@ -57,7 +57,7 @@ class DockerImage implements Serializable {
         script.sshagent(['ec2-server-key']) {
             // IP subject to change with each restart of EC2
             // suppress confirmation questions with param -o
-            script.sh "ssh -o StrictHostKeyChecking=no ec2-user@44.201.214.67 $script.dockerRunCmd"
+            script.sh "ssh -o StrictHostKeyChecking=no ec2-user@44.201.214.67 $dockerRunCmd"
         }
     }
 
