@@ -24,7 +24,8 @@ class DockerImage implements Serializable {
             script.sh "echo $script.PSWD | docker login -u $script.UID --password-stdin"
 
             // push image to docker hub
-            script.sh "docker push $imageName"
+            // TODO remember to uncomment to push new image
+            //script.sh "docker push $imageName"
         }
     }
 
