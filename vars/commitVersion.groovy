@@ -2,5 +2,5 @@
 import DockerImage
 
 def call() {
-    return new DockerImage(this).commitVersionNum()   
+    return new DockerImage(this).commitVersionNum(env.GIT_BRANCH)   
 }

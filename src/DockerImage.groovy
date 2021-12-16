@@ -28,7 +28,7 @@ class DockerImage implements Serializable {
         }
     }
 
-    def commitVersionNum() {
+    def commitVersionNum(String branchName) {
         script.echo "Preparing to commit POM.xml version changes to SCM ..."
         // use docker hub credentials from jenkins credentials settings
         script.withCredentials([script.usernamePassword(credentialsId: 'jenkins_pat', passwordVariable: 'PSWD', usernameVariable: 'UID')]) {
@@ -45,7 +45,7 @@ class DockerImage implements Serializable {
             // commit pom.xml to git repo
             script.sh 'git add .'
             script.sh 'git commit -m "jenkins: version updated"'
-            script.sh "git push origin HEAD:$GIT_BRANCH"
+            script.sh "git push origin HEAD:$branchName"
         }
     }
 
