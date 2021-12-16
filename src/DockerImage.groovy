@@ -65,8 +65,8 @@ class DockerImage implements Serializable {
     def deployToEC2DockerCompose(String ipEC2, String imageName, String imageTag) {
          
         script.echo "IP addr of EC2 instance found as $ipEC2"
-        // define docker compose command
-        def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
+        // define docker compose command in a shell script
+        def dockerComposeCmd = "bash ./docker-shell.sh"
 
         script.sshagent(['ec2-server-key']) {
             // Copy docker-compose from git repo to EC2 instance
