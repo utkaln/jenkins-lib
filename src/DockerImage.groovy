@@ -45,7 +45,7 @@ class DockerImage implements Serializable {
             // commit pom.xml to git repo
             script.sh 'git add .'
             script.sh 'git commit -m "jenkins: version updated"'
-            script.sh 'git push origin HEAD:jenkins_lib_update_version'
+            script.sh "git push origin HEAD:$GIT_BRANCH"
         }
     }
 
@@ -65,8 +65,6 @@ class DockerImage implements Serializable {
     def deployToEC2DockerCompose(String ipEC2, String imageName, String imageTag) {
          
         script.echo "IP addr of EC2 instance found as $ipEC2"
-        // removed docker run command since this is going to be replaced with call to docker-compose
-        // def dockerRunCmd = "docker run -p 8081:8080 -d $imageName$imageTag"
         // define docker compose command
         def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
 
