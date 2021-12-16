@@ -66,7 +66,8 @@ class DockerImage implements Serializable {
          
         script.echo "IP addr of EC2 instance found as $ipEC2"
         // define docker compose command in a shell script
-        def dockerComposeCmd = "bash ./docker-shell.sh"
+        def imageNameTag = imageName+imageTag 
+        def dockerComposeCmd = "bash ./docker-shell.sh ${imageNameTag}"
 
         script.sshagent(['ec2-server-key']) {
             // Copy the above shell script to EC2 first
