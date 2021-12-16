@@ -52,6 +52,19 @@ class DockerImage implements Serializable {
     def deployToEC2(String ipEC2, String imageName, String imageTag) {
          
         script.echo "IP addr of EC2 instance found as $ipEC2"
+        def dockerRunCmd = "docker run -p 8081:8080 -d $imageName$imageTag"
+       
+        script.sshagent(['ec2-server-key']) {
+            // Script to run docker command
+            // IP subject to change with each restart of EC2
+            // suppress confirmation questions with param -o
+            script.sh "ssh -o StrictHostKeyChecking=no ec2-user@$ipEC2 $dockerRunCmd"
+        }
+    }
+
+    def deployToEC2DockerCompose(String ipEC2, String imageName, String imageTag) {
+         
+        script.echo "IP addr of EC2 instance found as $ipEC2"
         // removed docker run command since this is going to be replaced with call to docker-compose
         // def dockerRunCmd = "docker run -p 8081:8080 -d $imageName$imageTag"
         // define docker compose command
