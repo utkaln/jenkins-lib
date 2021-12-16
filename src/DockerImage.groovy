@@ -69,6 +69,9 @@ class DockerImage implements Serializable {
         def dockerComposeCmd = "bash ./docker-shell.sh"
 
         script.sshagent(['ec2-server-key']) {
+            // Copy the above shell script to EC2 first
+            script.sh "scp docker-shell.sh ec2-user@$ipEC2:/home/ec2-user"
+
             // Copy docker-compose from git repo to EC2 instance
             script.sh "scp docker-compose.yaml ec2-user@$ipEC2:/home/ec2-user"
             
