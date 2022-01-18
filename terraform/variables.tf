@@ -13,9 +13,11 @@ variable "def_az" {
 variable "env_prefix" {
   default = "dev"
 }
-variable "rt_outside" {}
+variable "rt_outside" {
+  default = ["0.0.0.0/0"]
+}
 variable "ssh_ip" {
-  default = "151.196.124.95/32"
+  default = ["151.196.124.95/32"]
 }
 
 variable "instance_type" {
