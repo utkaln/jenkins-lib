@@ -51,10 +51,7 @@ class DockerImage implements Serializable {
 
 
     def provisionEC2Terraform(){
-        environment {
-            AWS_ACESS_KEY_ID = credentials("jenkins_aws_access_key_id")
-            AWS_SECRET_ACCESS_KEY = credentials("jenkins_aws_secret_access_key")
-        }
+        
         script {
             dir("terraform") {
                 script.sh "terraform init"
