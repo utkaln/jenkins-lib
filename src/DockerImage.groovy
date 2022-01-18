@@ -49,41 +49,12 @@ class DockerImage implements Serializable {
         }
     }
 
-    def deployToEC2(String ipEC2, String imageName, String imageTag) {
-         
-        script.echo "IP addr of EC2 instance found as $ipEC2"
-        def dockerRunCmd = "docker run -p 8081:8080 -d $imageName$imageTag"
-       
-        script.sshagent(['ec2-server-key']) {
-            // Script to run docker command
-            // IP subject to change with each restart of EC2
-            // suppress confirmation questions with param -o
-            script.sh "ssh -o StrictHostKeyChecking=no ec2-user@$ipEC2 $dockerRunCmd"
-        }
-    }
-
-    def deployToEC2DockerCompose(String ipEC2, String imageName, String imageTag) {
-         
-        script.echo "IP addr of EC2 instance found as $ipEC2"
-        // define docker compose command in a shell script
-        def imageNameTag = imageName+imageTag 
-        def dockerComposeCmd = "bash ./docker-shell.sh ${imageNameTag}"
-
-        script.sshagent(['ec2-server-key']) {
-            // Copy the above shell script to EC2 first
-            script.sh "scp docker-shell.sh ec2-user@$ipEC2:/home/ec2-user"
-
-            // Copy docker-compose from git repo to EC2 instance
-            script.sh "scp docker-compose.yaml ec2-user@$ipEC2:/home/ec2-user"
-            
-            // Script to run docker command
-            // IP subject to change with each restart of EC2
-            // suppress confirmation questions with param -o
-            script.sh "ssh -o StrictHostKeyChecking=no ec2-user@$ipEC2 $dockerComposeCmd"
-        }
-    }
 
     def provisionEC2Terraform(){
+        environment {
+            AWS_ACESS_KEY_ID = credentials("jenkins_aws_access_key_id")
+            AWS_SECRET_ACCESS_KEY = credentials("jenkins_aws_secret_access_key")
+        }
         script {
             dir("terraform") {
                 script.sh "terraform init"
