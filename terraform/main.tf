@@ -85,7 +85,7 @@ resource "aws_security_group" "utkal_sg" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = var.http_ip
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   // Outbound rule to not limit any port or any protocol
