@@ -51,6 +51,8 @@ class DockerImage implements Serializable {
 
 
     def provisionEC2Terraform(){
+        script.echo "PWD --> "
+        script.sh "pwd"
         script.dir("../../terraform") {
             script.sh "terraform init"
             script.sh "terraform apply --auto-approve"
