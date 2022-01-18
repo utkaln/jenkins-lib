@@ -51,17 +51,14 @@ class DockerImage implements Serializable {
 
 
     def provisionEC2Terraform(){
-        
-        script {
-            dir("terraform") {
-                script.sh "terraform init"
-                script.sh "terraform apply --auto-approve"
-                // read ip address from terraform output and set to env var
-                EC2_PUBLIC_IP = script.sh(
-                    script: "terraform output ec2_public_ip",
-                    returnStdout: true
-                ).trim()
-            }
+        dir("terraform") {
+            script.sh "terraform init"
+            script.sh "terraform apply --auto-approve"
+            // read ip address from terraform output and set to env var
+            EC2_PUBLIC_IP = script.sh(
+                script: "terraform output ec2_public_ip",
+                returnStdout: true
+            ).trim()
         }
     }
 
